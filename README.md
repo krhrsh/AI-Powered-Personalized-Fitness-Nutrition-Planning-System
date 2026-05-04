@@ -79,4 +79,4 @@ Open your web browser and navigate to the local server address:
 ```
 http://127.0.0.1:5000
 ```
-From here, you can input your details (age, weight, height, goal, allergies) and click "Generate Plan" to receive your personalized fitness and diet schedule entirely offline.
+From here, you can input your details (age, weight, height, goal, allergies) and click "Generate Plan" to receive your personalized fitness and diet schedule entirely offline..
