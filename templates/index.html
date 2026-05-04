@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fitness Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Fitness <span class="accent">Planner</span></h1>
+            <p>Your personalized path to wellness.</p>
+        </header>
+
+        <form id="fitnessForm">
+            <!-- Step 1: Personal Info -->
+            <div class="form-step active" id="step1">
+                <h2>About You</h2>
+                <div class="input-group">
+                    <label>Gender</label>
+                    <div class="select-options">
+                        <input type="radio" name="gender" value="male" id="male" checked>
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" value="female" id="female">
+                        <label for="female">Female</label>
+                        <input type="radio" name="gender" value="other" id="other">
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <label for="weight">Weight (kg) <span style="color:var(--primary)">*</span></label>
+                        <input type="number" id="weight" name="weight" placeholder="70" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="height">Height (cm) <span style="color:var(--primary)">*</span></label>
+                        <input type="number" id="height" name="height" placeholder="175" required>
+                    </div>
+                </div>
+                <button type="button" class="btn-next" onclick="nextStep(2)">Next</button>
+            </div>
+
+            <!-- Step 2: Fitness Goals -->
+            <div class="form-step" id="step2">
+                <h2>Fitness Goals</h2>
+                <div class="input-group">
+                    <label>Goal</label>
+                    <div class="card-options">
+                        <input type="radio" name="goal" value="lose_weight" id="lose" checked>
+                        <label for="lose" class="card-option">
+                            <span class="icon">📉</span>
+                            <span>Lose Weight</span>
+                        </label>
+                        <input type="radio" name="goal" value="maintain" id="maintain">
+                        <label for="maintain" class="card-option">
+                            <span class="icon">⚖️</span>
+                            <span>Maintain</span>
+                        </label>
+                        <input type="radio" name="goal" value="gain_muscle" id="gain">
+                        <label for="gain" class="card-option">
+                            <span class="icon">💪</span>
+                            <span>Gain Muscle</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Strength Level <span style="color:var(--primary)">*</span></label>
+                    <select name="strength_level" id="strength" required>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate" selected>Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Available Equipment <span style="color:var(--primary)">*</span></label>
+                    <select name="equipment" id="equipment" required>
+                        <option value="Any">Full Gym (Any Equipment)</option>
+                        <option value="Dumbbell">Dumbbells Only</option>
+                        <option value="Body Only">Bodyweight Only</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Activity Level (Optional for calorie estimation)</label>
+                    <select name="activity_level" id="activity">
+                        <option value="sedentary">Sedentary (Little/no exercise)</option>
+                        <option value="light">Lightly Active (1-3 days/week)</option>
+                        <option value="moderate" selected>Moderately Active (3-5 days/week)</option>
+                        <option value="active">Very Active (6-7 days/week)</option>
+                        <option value="extra_active">Extra Active (Physical job/training)</option>
+                    </select>
+                </div>
+                <div class="btn-row">
+                    <button type="button" class="btn-prev" onclick="nextStep(1)">Back</button>
+                    <button type="button" class="btn-next" onclick="nextStep(3)">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Health & Diet -->
+            <div class="form-step" id="step3">
+                <h2>Health & Diet</h2>
+                <div class="input-group">
+                    <label for="conditions">Health Conditions (Optional)</label>
+                    <input type="text" id="conditions" name="conditions" placeholder="e.g., Diabetes, Hypertension">
+                </div>
+                <div class="input-group">
+                    <label>Food Allergies</label>
+                    <div class="checkbox-options">
+                        <label><input type="checkbox" name="allergies" value="peanuts"> Peanuts</label>
+                        <label><input type="checkbox" name="allergies" value="milk"> Milk</label>
+                        <label><input type="checkbox" name="allergies" value="fish"> Fish</label>
+                        <label><input type="checkbox" name="allergies" value="eggs"> Eggs</label>
+                        <label><input type="checkbox" name="allergies" value="gluten"> Gluten</label>
+                        <label class="other-option">
+                            <input type="checkbox" id="other_allergy_check"> Other:
+                            <input type="text" name="other_allergy" id="other_allergy_input" disabled>
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Dietary Restrictions</label>
+                    <select name="diet_type" id="diet">
+                        <option value="none">None</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="keto">Keto</option>
+                        <option value="paleo">Paleo</option>
+                    </select>
+                </div>
+                <div class="btn-row">
+                    <button type="button" class="btn-prev" onclick="nextStep(2)">Back</button>
+                    <button type="button" class="btn-submit" onclick="submitForm()">Generate Plan ✨</button>
+                </div>
+            </div>
+        </form>
+        
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Crafting your personalized plan...</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

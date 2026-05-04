@@ -1,0 +1,8 @@
+Flask
+python-dotenv
+google-generativeai
+groq
+pandas
+scikit-learn
+joblib
+openpyxl
